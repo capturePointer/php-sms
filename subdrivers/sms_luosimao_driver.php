@@ -5,14 +5,19 @@
 */
 namespace capturePointer;
 class Sms_Luosimao_Driver extends \capturePointer\Sms_Driver{
-    protected $_apiKey = '8de8b94b1a006d1dc80asdfsdffae0';
+    protected $_apiKey = '';
     protected $_sendUrl = "http://sms-api.luosimao.com/v1/send.json";
     
     public function __construct() {
         
     }
     
-    public function send($phone, $msg){
+    public function init($apiKey, $sendUrl){
+        $this->_apiKey = $apiKey;
+        $this->_sendUrl = $sendUrl;
+    }
+    
+    public function send($phone, $msg, $captcha=''){
         if(!preg_match('/1\d{10}/', $phone) || strlen($phone) != 11 || empty($msg) || strlen($msg) > 500){
             return false;
         }
@@ -32,9 +37,10 @@ class Sms_Luosimao_Driver extends \capturePointer\Sms_Driver{
 
         $res = curl_exec( $ch );
         curl_close( $ch );
-        //$res  = curl_error( $ch );
+        $res  = curl_error( $ch );
         $json = json_decode($res);
         if(isset($json->error) && 0 == $json->error){
+            $this->_sendOnSuccess($phone,$captcha);
             return true;
         }
         else{
