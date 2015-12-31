@@ -2,13 +2,13 @@ php sms library:
 you can add sms platform under subdrivers folder
 you can send sms like below:
 
-<?php
-require_once dirname(__FILE__) . '/../sms.php';
-$sms = \capturePointer\sms("luosimao");
-$ret = $sms->send(11111111111, "ÑéÖ¤Âë£º123456¡¾capturePointer¡¿");
-if($ret){
-	print "·¢ËÍ³É¹¦";
-}
-else{
-	print "·¢ËÍÊ§°Ü";
-}
+	<?php
+	require_once dirname(__FILE__) . '/../sms.php';
+	$sms = \capturePointer\sms("luosimao");
+	$ret = $sms->send(11111111111, "éªŒè¯ç ï¼š123456ã€capturePointerã€‘");
+	if($ret){
+		print "å‘é€æˆåŠŸ";
+	}
+	else{
+		print "å‘é€å¤±è´¥";
+	}
